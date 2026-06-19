@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gri Digital | Consultoria em Mídia Programática & pDOOH</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #080B14;
+    --bg2:        #0D1120;
+    --bg3:        #111827;
+    --purple:     #4C3683;
+    --purple-lt:  #7C5FC8;
+    --magenta:    #C428DD;
+    --cyan:       #2CD6D6;
+    --gold:       #F59E0B;
+    --text:       #E2E8F0;
+    --text-dim:   #94A3B8;
+    --border:     rgba(76,54,131,0.3);
+    --border-c:   rgba(44,214,214,0.2);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(8,11,20,0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo svg {
+    height: 32px;
+    width: auto;
+  }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--cyan); }
+
+  .nav-cta {
+    background: var(--magenta) !important;
+    color: #fff !important;
+    padding: 0.45rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 600 !important;
+    transition: opacity 0.2s !important;
+  }
+
+  .nav-cta:hover { opacity: 0.85; color: #fff !important; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    nav { padding: 1rem 1.25rem; }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 8rem 1.5rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Grid lines */
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(76,54,131,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(76,54,131,0.07) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(90px);
+  }
+
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, #4C3683 0%, transparent 70%);
+    top: -120px; left: -140px;
+    opacity: 0.45;
+  }
+
+  .orb-2 {
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, #2CD6D6 0%, transparent 70%);
+    bottom: -60px; right: -100px;
+    opacity: 0.18;
+  }
+
+  .orb-3 {
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, #C428DD 0%, transparent 70%);
+    top: 30%; right: 5%;
+    opacity: 0.12;
+  }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--cyan);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    position: relative; z-index: 1;
+  }
+
+  /* Hero logo large */
+  .hero-logo {
+    position: relative; z-index: 1;
+    margin-bottom: 2rem;
+  }
+
+  .hero-logo svg {
+    height: 64px;
+    width: auto;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    position: relative; z-index: 1;
+  }
+
+  .hero h1 .accent-m { color: var(--magenta); }
+  .hero h1 .accent-c { color: var(--cyan); }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    max-width: 540px;
+    margin: 0 auto 2.5rem;
+    position: relative; z-index: 1;
+    line-height: 1.7;
+  }
+
+  .hero-badges {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
+    margin-bottom: 3rem;
+    position: relative; z-index: 1;
+  }
+
+  .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    background: rgba(76,54,131,0.1);
+    letter-spacing: 0.05em;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 1;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    background: var(--magenta);
+    color: #fff;
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.25s;
+    box-shadow: 0 0 28px rgba(196,40,221,0.4);
+  }
+
+  .btn-primary:hover {
+    opacity: 0.88;
+    box-shadow: 0 0 44px rgba(196,40,221,0.55);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    color: var(--text-dim);
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+
+  .btn-ghost:hover {
+    color: var(--cyan);
+    border-color: var(--border-c);
+  }
+
+  /* ── STATS ── */
+  .stats {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 1.5rem;
+  }
+
+  .stats-inner {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+    gap: 2rem; text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--cyan);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 1.5rem; }
+  .container { max-width: 1000px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--cyan);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.7rem, 3.5vw, 2.3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.85rem;
+  }
+
+  .section-desc {
+    color: var(--text-dim);
+    max-width: 540px;
+    margin-bottom: 3rem;
+    font-size: 0.95rem;
+  }
+
+  /* ── SERVICES ── */
+  #servicos { background: var(--bg); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: 1.2rem;
+  }
+
+  .service-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--purple-lt), var(--cyan));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .service-card:hover {
+    border-color: rgba(76,54,131,0.55);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+  }
+
+  .service-card:hover::before { opacity: 1; }
+
+  .service-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .icon-m { background: rgba(196,40,221,0.12); border: 1px solid rgba(196,40,221,0.3); }
+  .icon-c { background: rgba(44,214,214,0.1);  border: 1px solid rgba(44,214,214,0.25); }
+  .icon-g { background: rgba(245,158,11,0.1);  border: 1px solid rgba(245,158,11,0.25); }
+
+  .service-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .service-card p { font-size: 0.86rem; color: var(--text-dim); line-height: 1.65; }
+
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+
+  .service-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0.18rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(76,54,131,0.12);
+    color: var(--purple-lt);
+    border: 1px solid rgba(76,54,131,0.25);
+  }
+
+  /* ── ABOUT ── */
+  #sobre { background: var(--bg3); }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+
+  .about-text p {
+    color: var(--text-dim); font-size: 0.93rem;
+    line-height: 1.8; margin-bottom: 1.2rem;
+  }
+
+  .about-text strong { color: var(--text); }
+
+  .about-stack { display: flex; flex-direction: column; gap: 0.85rem; }
+
+  .stack-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 0.9rem 1.15rem;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .stack-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%; flex-shrink: 0;
+  }
+
+  .dot-m { background: var(--magenta); box-shadow: 0 0 8px var(--magenta); }
+  .dot-c { background: var(--cyan);    box-shadow: 0 0 8px var(--cyan); }
+  .dot-g { background: var(--gold);    box-shadow: 0 0 8px var(--gold); }
+
+  .stack-name { font-size: 0.86rem; font-weight: 600; flex: 1; }
+  .stack-level { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--text-dim); }
+
+  /* ── CASES ── */
+  #cases { background: var(--bg); }
+
+  .cases-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: 1.2rem;
+  }
+
+  .case-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.75rem;
+  }
+
+  .case-client {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .case-card h3 { font-size: 0.98rem; font-weight: 600; margin-bottom: 0.6rem; }
+  .case-card p  { font-size: 0.84rem; color: var(--text-dim); line-height: 1.65; }
+
+  .case-metric {
+    display: inline-block; margin-top: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--cyan);
+  }
+
+  .case-metric-label {
+    display: block; font-size: 0.68rem;
+    color: var(--text-dim); margin-top: 0.1rem;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+
+  /* ── PROCESS ── */
+  #processo { background: var(--bg3); }
+
+  .process-steps {
+    display: flex; flex-direction: column;
+    position: relative; max-width: 700px;
+  }
+
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    left: 17px; top: 36px; bottom: 36px; width: 1px;
+    background: linear-gradient(180deg, var(--magenta), var(--cyan));
+    opacity: 0.25;
+  }
+
+  .step { display: flex; gap: 1.5rem; align-items: flex-start; padding: 1.4rem 0; }
+
+  .step-num {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--bg2); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; color: var(--cyan);
+    flex-shrink: 0; z-index: 1;
+  }
+
+  .step-content h3 { font-size: 0.98rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .step-content p  { font-size: 0.86rem; color: var(--text-dim); line-height: 1.65; }
+
+  /* ── CONTACT ── */
+  #contato {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .cta-box { max-width: 620px; margin: 0 auto; }
+  .cta-box p { color: var(--text-dim); margin-bottom: 2.5rem; font-size: 1rem; }
+
+  .whatsapp-btn {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    background: #25D366; color: #fff;
+    padding: 1rem 2.4rem;
+    border-radius: 10px;
+    font-weight: 700; font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.25s;
+    box-shadow: 0 0 28px rgba(37,211,102,0.35);
+  }
+
+  .whatsapp-btn:hover {
+    background: #1ebe58;
+    box-shadow: 0 0 44px rgba(37,211,102,0.5);
+    transform: translateY(-2px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 1rem;
+  }
+
+  .footer-logo svg { height: 24px; width: auto; opacity: 0.6; }
+
+  footer p { font-size: 0.78rem; color: var(--text-dim); text-align: center; }
+  footer span { color: var(--cyan); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+  .delay-4 { transition-delay: 0.4s; }
+  .delay-5 { transition-delay: 0.5s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" font-family="'Space Grotesk','Arial',sans-serif">
+      <g>
+        <rect x="21.5" y="0"    width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="43"   y="0"    width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="64.5" y="0"    width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="86"   y="0"    width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="0"    y="21.5" width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="0"    y="43"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="64.5" y="43"   width="14" height="14" rx="2.66" fill="#C428DD"/>
+        <rect x="86"   y="43"   width="14" height="14" rx="2.66" fill="#2CD6D6"/>
+        <rect x="0"    y="64.5" width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="86"   y="64.5" width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="21.5" y="86"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="43"   y="86"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="64.5" y="86"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="86"   y="86"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+      </g>
+      <text x="128" y="78" font-size="86" font-weight="700" letter-spacing="2" fill="#FFFFFF">GRID</text>
+    </svg>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#cases">Cases</a></li>
+    <li><a href="#processo">Como funciona</a></li>
+    <li><a href="#contato" class="nav-cta">Falar agora</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <p class="hero-eyebrow">// Consultoria em Mídia Programática</p>
+
+  <div class="hero-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" font-family="'Space Grotesk','Arial',sans-serif">
+      <g>
+        <rect x="21.5" y="0"    width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="43"   y="0"    width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="64.5" y="0"    width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="86"   y="0"    width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="0"    y="21.5" width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="0"    y="43"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="64.5" y="43"   width="14" height="14" rx="2.66" fill="#C428DD"/>
+        <rect x="86"   y="43"   width="14" height="14" rx="2.66" fill="#2CD6D6"/>
+        <rect x="0"    y="64.5" width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="86"   y="64.5" width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="21.5" y="86"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="43"   y="86"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="64.5" y="86"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="86"   y="86"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+      </g>
+      <text x="128" y="78" font-size="86" font-weight="700" letter-spacing="2" fill="#FFFFFF">GRID</text>
+    </svg>
+  </div>
+
+  <h1>
+    Campanhas que <span class="accent-m">performam</span><br>
+    nos lugares <span class="accent-c">certos</span>
+  </h1>
+
+  <p class="hero-sub">
+    Gerenciamento estratégico de plataformas de mídia digital e programática — do Search ao pDOOH — com mais de 10 anos operando campanhas para grandes marcas.
+  </p>
+
+  <div class="hero-badges">
+    <span class="badge">DV360</span>
+    <span class="badge">Google Ads</span>
+    <span class="badge">Meta Ads</span>
+    <span class="badge">LinkedIn Ads</span>
+    <span class="badge">CM360</span>
+    <span class="badge">pDOOH</span>
+    <span class="badge">Glooh</span>
+    <span class="badge">Hivestack</span>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#contato" class="btn-primary">
+      💬 Falar no WhatsApp
+    </a>
+    <a href="#servicos" class="btn-ghost">
+      Ver serviços →
+    </a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="fade-up">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Anos de mercado</div>
+    </div>
+    <div class="fade-up delay-1">
+      <div class="stat-num">R$7M+</div>
+      <div class="stat-label">Em mídia gerenciada</div>
+    </div>
+    <div class="fade-up delay-2">
+      <div class="stat-num">8+</div>
+      <div class="stat-label">Mercados pDOOH</div>
+    </div>
+    <div class="fade-up delay-3">
+      <div class="stat-num">PJ</div>
+      <div class="stat-label">Nota fiscal & CNPJ</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="servicos">
+  <div class="container">
+    <p class="section-eyebrow fade-up">// O que oferecemos</p>
+    <h2 class="section-title fade-up">Gestão completa de plataformas<br>de mídia digital</h2>
+    <p class="section-desc fade-up">Cada plataforma tem sua lógica. Cuidamos da configuração, operação, otimização e relatórios — para que você foque no negócio.</p>
+
+    <div class="services-grid">
+      <div class="service-card fade-up delay-1">
+        <div class="service-icon icon-m">🎯</div>
+        <h3>Google Ads</h3>
+        <p>Campanhas de Search, Display, YouTube e Performance Max com estrutura estratégica, segmentação precisa e otimização contínua orientada a resultado.</p>
+        <div class="service-tags">
+          <span class="service-tag">Search</span>
+          <span class="service-tag">Display</span>
+          <span class="service-tag">YouTube</span>
+          <span class="service-tag">PMax</span>
+        </div>
+      </div>
+
+      <div class="service-card fade-up delay-2">
+        <div class="service-icon icon-c">📱</div>
+        <h3>Meta Ads</h3>
+        <p>Gestão de campanhas no Facebook e Instagram com foco em funil completo — da awareness à conversão — com testes A/B e otimização de criativos.</p>
+        <div class="service-tags">
+          <span class="service-tag">Facebook</span>
+          <span class="service-tag">Instagram</span>
+          <span class="service-tag">Reels Ads</span>
+        </div>
+      </div>
+
+      <div class="service-card fade-up delay-3">
+        <div class="service-icon icon-g">💼</div>
+        <h3>LinkedIn Ads</h3>
+        <p>Campanhas B2B com targeting por cargo, setor e empresa. Ideal para geração de leads qualificados e posicionamento de marca no ambiente corporativo.</p>
+        <div class="service-tags">
+          <span class="service-tag">Lead Gen</span>
+          <span class="service-tag">Sponsored</span>
+          <span class="service-tag">B2B</span>
+        </div>
+      </div>
+
+      <div class="service-card fade-up delay-1">
+        <div class="service-icon icon-m">⚡</div>
+        <h3>DV360 — Mídia Programática</h3>
+        <p>Operação completa em Display & Video 360 com estratégia de audiências, Deal IDs, PMP e integração com CM360 para tracking e mensuração avançada.</p>
+        <div class="service-tags">
+          <span class="service-tag">DV360</span>
+          <span class="service-tag">CM360</span>
+          <span class="service-tag">GMP</span>
+          <span class="service-tag">PMP</span>
+        </div>
+      </div>
+
+      <div class="service-card fade-up delay-2">
+        <div class="service-icon icon-c">🏙️</div>
+        <h3>pDOOH — Programmatic OOH</h3>
+        <p>Especialidade única no mercado: gestão de campanhas em telas externas e indoor via DSPs programáticos com dados de audiência e segmentação contextual em tempo real.</p>
+        <div class="service-tags">
+          <span class="service-tag">Glooh</span>
+          <span class="service-tag">Hivestack</span>
+          <span class="service-tag">Vistar</span>
+          <span class="service-tag">SSP/DSP</span>
+        </div>
+      </div>
+
+      <div class="service-card fade-up delay-3">
+        <div class="service-icon icon-g">📊</div>
+        <h3>Relatórios & Consultoria</h3>
+        <p>Dashboards customizados, análise de performance, reuniões de alinhamento e recomendações baseadas em dados para apoiar decisões de mídia com clareza.</p>
+        <div class="service-tags">
+          <span class="service-tag">Looker Studio</span>
+          <span class="service-tag">Dashboards</span>
+          <span class="service-tag">Estratégia</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="sobre">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <p class="section-eyebrow">// Quem está por trás</p>
+        <h2 class="section-title">Karina Santana</h2>
+        <p>Especialista em mídia programática com <strong>mais de 10 anos de experiência</strong> operando campanhas em grandes plataformas digitais — com foco em resultado, transparência e estratégia.</p>
+        <p>A Gri Digital é a materialização de uma operação <strong>consultiva e especializada</strong>, que vai além de "rodar campanhas" — pensa o negócio do cliente e como a mídia pode ser alavanca de crescimento real.</p>
+        <p>Autora de um <strong>e-book sobre DV360 e pDOOH</strong>, com passagem por campanhas de marcas como <strong>Bradesco, McDonald's e Uber</strong>. Parceira estratégica da plataforma belga <strong>Glooh</strong> no Brasil.</p>
+        <p>Atuamos como <strong>PJ (Microempresa)</strong> com emissão de nota fiscal — relação comercial formal e transparente para empresas de todos os portes.</p>
+        <div style="margin-top:1.8rem;">
+          <a href="#contato" class="btn-primary">Agendar uma conversa →</a>
+        </div>
+      </div>
+
+      <div class="about-stack fade-up delay-2">
+        <div class="stack-item">
+          <div class="stack-dot dot-m"></div>
+          <span class="stack-name">Google Marketing Platform</span>
+          <span class="stack-level">DV360 · CM360 · GA4</span>
+        </div>
+        <div class="stack-item">
+          <div class="stack-dot dot-c"></div>
+          <span class="stack-name">pDOOH DSPs</span>
+          <span class="stack-level">Glooh · Hivestack · Vistar</span>
+        </div>
+        <div class="stack-item">
+          <div class="stack-dot dot-g"></div>
+          <span class="stack-name">Meta Business Suite</span>
+          <span class="stack-level">Facebook · Instagram · Reels</span>
+        </div>
+        <div class="stack-item">
+          <div class="stack-dot dot-m"></div>
+          <span class="stack-name">LinkedIn Campaign Manager</span>
+          <span class="stack-level">B2B · Lead Gen · ABM</span>
+        </div>
+        <div class="stack-item">
+          <div class="stack-dot dot-c"></div>
+          <span class="stack-name">Google Ads</span>
+          <span class="stack-level">Search · Display · YouTube · PMax</span>
+        </div>
+        <div class="stack-item">
+          <div class="stack-dot dot-g"></div>
+          <span class="stack-name">Analytics & BI</span>
+          <span class="stack-level">Looker Studio · GA4 · Floodlight</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section id="cases">
+  <div class="container">
+    <p class="section-eyebrow fade-up">// Experiência comprovada</p>
+    <h2 class="section-title fade-up">Marcas que já atendemos</h2>
+    <p class="section-desc fade-up">Cases reais com métricas e resultados concretos.</p>
+
+    <div class="cases-grid">
+      <div class="case-card fade-up delay-1">
+        <p class="case-client">Bradesco</p>
+        <h3>Campanha pDOOH Multi-Mercado</h3>
+        <p>Gestão de campanha programática em OOH para "Início de Ano Super Pix" com cobertura em 8+ praças brasileiras, segmentação por audiência e contexto em tempo real.</p>
+        <span class="case-metric">R$ 7,39M</span>
+        <span class="case-metric-label">Investimento líquido gerenciado</span>
+      </div>
+
+      <div class="case-card fade-up delay-2">
+        <p class="case-client">McDonald's</p>
+        <h3>Programática & Geotargeting DOOH</h3>
+        <p>Campanhas de mídia programática com segmentação geolocalizada em telas próximas a restaurantes — maximizando relevância contextual e drive-to-store.</p>
+        <span class="case-metric">8+</span>
+        <span class="case-metric-label">Mercados simultâneos</span>
+      </div>
+
+      <div class="case-card fade-up delay-3">
+        <p class="case-client">Uber</p>
+        <h3>Mídia Programática Nacional</h3>
+        <p>Gestão de campanhas com dados de audiência e otimização de entrega em múltiplos formatos e ambientes digitais via Google Marketing Platform.</p>
+        <span class="case-metric">GMP</span>
+        <span class="case-metric-label">Stack DV360 + CM360</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="processo">
+  <div class="container">
+    <p class="section-eyebrow fade-up">// Como funciona</p>
+    <h2 class="section-title fade-up">Do briefing aos resultados</h2>
+    <p class="section-desc fade-up">Um processo claro, documentado e consultivo — sem achismos.</p>
+
+    <div class="process-steps">
+      <div class="step fade-up delay-1">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Diagnóstico inicial</h3>
+          <p>Análise das contas existentes, objetivos de negócio e histórico de campanhas. Identificamos gaps e oportunidades antes de qualquer ação.</p>
+        </div>
+      </div>
+      <div class="step fade-up delay-2">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Estratégia de mídia</h3>
+          <p>Definição de plataformas, segmentações, verba por canal, formatos criativos recomendados e KPIs de campanha alinhados ao seu objetivo.</p>
+        </div>
+      </div>
+      <div class="step fade-up delay-3">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Setup & implementação</h3>
+          <p>Configuração técnica completa — estrutura de campanhas, pixels, tagueamento, fluxo de conversão e integrações entre plataformas.</p>
+        </div>
+      </div>
+      <div class="step fade-up delay-4">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>Operação & otimização contínua</h3>
+          <p>Monitoramento diário, ajustes de lances, audiências e criativos. A otimização não para — evolui junto com os dados da campanha.</p>
+        </div>
+      </div>
+      <div class="step fade-up delay-5">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h3>Relatórios & reunião mensal</h3>
+          <p>Dashboard atualizado com resultados, análise de performance e reunião mensal de alinhamento estratégico com recomendações para o próximo período.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contato">
+  <div class="container">
+    <div class="cta-box">
+      <p class="section-eyebrow fade-up">// Bora conversar?</p>
+      <h2 class="section-title fade-up">Pronto para campanhas<br>que realmente performam?</h2>
+      <p class="fade-up delay-1">Manda uma mensagem no WhatsApp. Respondemos em até 24h e agendamos uma conversa para entender o seu desafio de mídia.</p>
+
+      <a href="https://wa.me/5511999999999?text=Olá%20Karina!%20Vi%20o%20site%20da%20Gri%20Digital%20e%20gostaria%20de%20conversar%20sobre%20gestão%20de%20mídia." class="whatsapp-btn fade-up delay-2" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Falar no WhatsApp
+      </a>
+
+      <p style="margin-top:1.5rem; font-size:0.78rem; color:var(--text-dim);" class="fade-up delay-3">
+        Atendimento como PJ com emissão de nota fiscal &nbsp;·&nbsp; São Paulo, SP &nbsp;·&nbsp; Todo o Brasil
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 100" font-family="'Space Grotesk','Arial',sans-serif">
+      <g>
+        <rect x="21.5" y="0"    width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="43"   y="0"    width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="64.5" y="0"    width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="86"   y="0"    width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="0"    y="21.5" width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="0"    y="43"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="64.5" y="43"   width="14" height="14" rx="2.66" fill="#C428DD"/>
+        <rect x="86"   y="43"   width="14" height="14" rx="2.66" fill="#2CD6D6"/>
+        <rect x="0"    y="64.5" width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="86"   y="64.5" width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="21.5" y="86"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="43"   y="86"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="64.5" y="86"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+        <rect x="86"   y="86"   width="14" height="14" rx="2.66" fill="#7C5FC8"/>
+      </g>
+      <text x="128" y="78" font-size="86" font-weight="700" letter-spacing="2" fill="#FFFFFF">GRID</text>
+    </svg>
+  </div>
+  <p>© 2026 <span>Gri Digital</span> · Karina Santana · Especialista em Mídia Programática & pDOOH · São Paulo, SP</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
